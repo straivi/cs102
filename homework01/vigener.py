@@ -23,7 +23,10 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
                 if newKey > 122:
                     newKey -= 26
             ciphertext += chr(newKey)
+<<<<<<< HEAD
     
+=======
+>>>>>>> feature/vigener
     return ciphertext
 
 
@@ -52,4 +55,8 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
                 if newKey < 97:
                     newKey += 26
             plaintext += chr(newKey)
+<<<<<<< HEAD
     return plaintext
+=======
+    return plaintext
+>>>>>>> feature/vigener
