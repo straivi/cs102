@@ -1,5 +1,7 @@
 from typing import Tuple, List, Set, Optional
 
+import random
+
 
 def read_sudoku(filename: str) -> List[List[str]]:
     """ Прочитать Судоку из указанного файла """
@@ -121,12 +123,18 @@ def solve(grid: List[List[str]]) -> Optional[List[List[str]]]:
     >>> solve(grid)
     [['5', '3', '4', '6', '7', '8', '9', '1', '2'], ['6', '7', '2', '1', '9', '5', '3', '4', '8'], ['1', '9', '8', '3', '4', '2', '5', '6', '7'], ['8', '5', '9', '7', '6', '1', '4', '2', '3'], ['4', '2', '6', '8', '5', '3', '7', '9', '1'], ['7', '1', '3', '9', '2', '4', '8', '5', '6'], ['9', '6', '1', '5', '3', '7', '2', '8', '4'], ['2', '8', '7', '4', '1', '9', '6', '3', '5'], ['3', '4', '5', '2', '8', '6', '1', '7', '9']]
     """
-    while find_empty_positions(grid) != None:
-        pos = find_empty_positions(grid)
-        values = find_possible_values(grid, pos)
-        row, col = pos
-        grid[row][col] = values.pop()
-    return grid
+    pos = find_empty_positions(grid)
+    if pos == None:
+        return grid
+    row, col = pos
+    values =  find_possible_values(grid, pos)
+    for value in values:
+        grid[row][col] = value
+        if solve(grid) != None:
+            return solve(grid)
+    grid[row][col] = '.'
+    return None
+
 
 
 def check_solution(solution: List[List[str]]) -> bool:
@@ -167,7 +175,15 @@ def generate_sudoku(N: int) -> List[List[str]]:
     >>> check_solution(solution)
     True
     """
-    pass
+    grid = solve([['.'] * 9 for _ in range(9)])
+    DotCount = 81 - N
+    while DotCount > 0:
+        r = random.randint(0, 8)
+        c = random.randint(0, 8)
+        if grid[r][c] != '.':
+            grid[r][c] = '.'
+            DotCount -= 1
+    return grid
 
 
 if __name__ == '__main__':
