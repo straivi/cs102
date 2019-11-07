@@ -59,6 +59,7 @@ class GameOfLife:
             # Выполнение одного шага игры (обновление состояния ячеек)
             # PUT YOUR CODE HERE
 
+            draw_grid()
             pygame.display.flip()
             clock.tick(self.speed)
         pygame.quit()
@@ -81,12 +82,19 @@ class GameOfLife:
         out : Grid
             Матрица клеток размером `cell_height` х `cell_width`.
         """
-        pass
+        for row in range(0, self.height/self.cell_size):
+            for coll in range(0, self.width/self.cell_size):
+                Grid[row][col] = random.getrandbits(1)
+        return Grid
 
     def draw_grid(self) -> None:
         """
         Отрисовка списка клеток с закрашиванием их в соответствующе цвета.
         """
+        for row in range(0, self.height, self.cell_size):
+            for coll in range(0, self.width, self.cell_size):
+                color = pygame.Color('white') if Grid[row/self.cell_size][coll/self.cell_size] == 0 else pygame.Color('green')
+                pygame.draw.rect(screen, color, (row, coll, self.cell_size, self.cell_size))
         pass
 
     def get_neighbours(self, cell: Cell) -> Cells:
