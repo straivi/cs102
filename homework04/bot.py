@@ -226,3 +226,4 @@ def get_help(message):
 if __name__ == '__main__':
     bot.polling(none_stop=True)
     
+pkg_resources.get_distribution("DateTime").version
