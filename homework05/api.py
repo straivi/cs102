@@ -43,7 +43,7 @@ def get_friends(user_id, fields = 'bdate'):
     assert isinstance(fields, str), "fields must be string"
     assert user_id > 0, "user_id must be positive integer"
     domain = "https://api.vk.com/method"
-    access_token = "3a801c75f46b737478d5f1bff5385f5a6f11e43fa3d453dd2c3254b23baf94d57427d10e6b104e60e6823"
+    access_token = "cd65d72d4b868ca790e7132d5883a085241e7e907cb69f35241bbd4f0efe39c98a14eead782879207b86d"
     v = '5.103'
 
     query = f"{domain}/friends.get?access_token={access_token}&user_id={user_id}&fields={fields}&v={v}"
