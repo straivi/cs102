@@ -18,9 +18,9 @@ def age_predict(user_id = 141614829) -> Optional[float]:
     assert user_id > 0, "user_id must be positive integer"
     response = get_friends(user_id)
     usersData = []
-    for person in range(response['response']['count']):
+    for person in range(response):
         try:
-            usersData.append(response['response']['items'][person]['bdate'])
+            usersData.append(response[person]['bdate'])
         except Exception:
             pass
     ages = 0
@@ -45,4 +45,4 @@ def get_age(year, month, day):
         if today.day < day: age -= 1
     return age
     
-print(age_predict())
+#print(age_predict())
