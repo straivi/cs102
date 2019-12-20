@@ -43,28 +43,23 @@ def get_friends(user_id, fields = 'bdate'):
     assert isinstance(fields, str), "fields must be string"
     assert user_id > 0, "user_id must be positive integer"
     domain = "https://api.vk.com/method"
-    access_token = "79e9ef8cdd14d14e26d63e2bff4f190ea2bb2d32610d632226db68d27e151a576d9efa70f8aa026e92f23"
+    access_token = "3a801c75f46b737478d5f1bff5385f5a6f11e43fa3d453dd2c3254b23baf94d57427d10e6b104e60e6823"
     v = '5.103'
 
     query = f"{domain}/friends.get?access_token={access_token}&user_id={user_id}&fields={fields}&v={v}"
     response = requests.get(query)
-    print(response.json())
     response = response.json()
-    return response
+    return response['response']['items']
 
 
-
-
-def messages_get_history(user_id, offset=0, count=20):
-    """ Получить историю переписки с указанным пользователем
-
-    :param user_id: идентификатор пользователя, с которым нужно получить историю переписки
-    :param offset: смещение в истории переписки
-    :param count: число сообщений, которое нужно получить
-    """
-    assert isinstance(user_id, int), "user_id must be positive integer"
-    assert user_id > 0, "user_id must be positive integer"
-    assert isinstance(offset, int), "offset must be positive integer"
-    assert offset >= 0, "user_id must be positive integer"
-    assert count >= 0, "user_id must be positive integer"
-    # PUT YOUR CODE HERE
+def names(user_id: int) -> list:
+    namelist: list = []
+    users = get_friends(user_id)
+    for i in range(len(users)):
+        if users[i]['first_name']== 'DELETED':
+            continue
+        else:
+            name = [users[i]['first_name'], users[i]['last_name']]
+            namelist.append(name)
+        i += 1
+    return namelist
