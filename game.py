@@ -97,6 +97,8 @@ def pathWithMonsters(coordStart,coordEnd, matrix, lenght, width, hp):
     end = coordEnd[0] * width + coordEnd[1]
     vertexPath.append(end)
     weight = distance[end][0]
+    if distance[end] == (10000, 10000):
+        return 'YOU DEAD'
     while end != start:
         for i in range(size):
             if matrix[end][i][0] != 0:
@@ -111,10 +113,10 @@ def pathWithMonsters(coordStart,coordEnd, matrix, lenght, width, hp):
 witcher = hero((0,1) ,5 ,(2,1))
 
 Field = '''
-        0000
+        0020
         0900
-        0000
-        0000
+        9090
+        0900
 '''
 Len = 4
 Width = 4
